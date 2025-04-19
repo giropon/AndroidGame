@@ -160,6 +160,16 @@ class GameManager(val boardWidth: Int = 10, val boardHeight: Int = 20) {
         return (1000L - (level - 1) * 100L).coerceAtLeast(100L)
     }
 
-    
+    /**
+     * 現在のテトリミノが落下できる最下段の位置にあるゴーストテトリミノを返す
+     */
+    fun getGhostTetromino(): Tetromino {
+        val ghost = Tetromino(currentTetromino.type, currentTetromino.x, currentTetromino.y)
+        ghost.shape = currentTetromino.shape.map { it.copyOf() }.toTypedArray()
+        while (board.canPlace(ghost, ghost.x, ghost.y + 1)) {
+            ghost.y += 1
+        }
+        return ghost
+    }
 }
 

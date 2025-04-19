@@ -64,6 +64,8 @@ class TetrisView(context: Context) : View(context) {
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         renderer.renderBoard(canvas, gameManager.board)
+        // ゴースト（落下予定位置）を50%透過で描画
+        renderer.renderGhostTetromino(canvas, gameManager.getGhostTetromino())
         renderer.renderTetromino(canvas, gameManager.currentTetromino)
         renderer.renderNextTetromino(canvas, gameManager.nextTetromino)
         renderer.renderScore(canvas, gameManager.score, gameManager.level)

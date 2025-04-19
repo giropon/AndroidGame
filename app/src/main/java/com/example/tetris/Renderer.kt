@@ -46,6 +46,34 @@ class Renderer {
     }
 
     /**
+     * ゴーストテトリミノを描画（50%透過）
+     */
+    fun renderGhostTetromino(canvas: Canvas, tetromino: Tetromino) {
+        val margin = 10
+        val boardWidth = 10
+        val cellSize = (canvas.width - margin * 2) / boardWidth
+        val offsetX = margin
+        for (dy in tetromino.shape.indices) {
+            for (dx in tetromino.shape[dy].indices) {
+                val cell = tetromino.shape[dy][dx]
+                if (cell != 0) {
+                    paint.color = Color.BLACK // 黒
+                    val x = tetromino.x + dx
+                    val y = tetromino.y + dy
+                    canvas.drawRect(
+                        (offsetX + x * cellSize).toFloat(),
+                        (offsetY + y * cellSize).toFloat(),
+                        (offsetX + (x + 1) * cellSize).toFloat(),
+                        (offsetY + (y + 1) * cellSize).toFloat(),
+                        paint
+                    )
+                }
+            }
+        }
+
+    }
+
+    /**
      * 操作中テトリミノを描画
      */
     fun renderTetromino(canvas: Canvas, tetromino: Tetromino) {
@@ -77,6 +105,7 @@ class Renderer {
      * 次のテトリミノを描画
      */
     fun renderNextTetromino(canvas: Canvas, tetromino: Tetromino) {
+        return
         val margin = 10
         val cellSize = (canvas.width - margin * 2) / 10
         val offsetX = margin

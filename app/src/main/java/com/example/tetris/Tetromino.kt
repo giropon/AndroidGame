@@ -16,7 +16,7 @@ class Tetromino(
     var y: Int = 0
 ) {
     var shape: Array<Array<Int>> = getInitialShape(type)
-        private set
+        set
 
     /**
      * 右回転
