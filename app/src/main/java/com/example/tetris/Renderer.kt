@@ -10,21 +10,6 @@ import android.graphics.Paint
 class Renderer {
     private val offsetY: Int = 20
     private val paint = Paint()
-
-    // テトリミノごとの色（0は空白）
-    private val colors = mapOf(
-        0 to Color.LTGRAY,
-        1 to Color.CYAN, // I
-        2 to Color.YELLOW, // O
-        3 to Color.GREEN, // S
-        4 to Color.RED, // Z
-        5 to Color.BLUE, // J
-        6 to Color.rgb(255, 140, 0), // L
-        7 to Color.MAGENTA // T
-    )
-
-    private val paint = Paint()
-
     // テトリミノごとの色（0は空白）
     private val colors = mapOf(
         0 to Color.LTGRAY,
@@ -92,7 +77,11 @@ class Renderer {
      * 次のテトリミノを描画
      */
     fun renderNextTetromino(canvas: Canvas, tetromino: Tetromino) {
-        val startX = offsetX + (cellSize * (10 + 2)) // 盤面右側に表示
+        val margin = 10
+        val cellSize = (canvas.width - margin * 2) / 10
+        val offsetX = margin
+        // 盤面の右側に表示（2セル分のスペースを空けて表示）
+        val startX = offsetX + (cellSize * (10 + 2))
         val startY = offsetY
         for (dy in tetromino.shape.indices) {
             for (dx in tetromino.shape[dy].indices) {
@@ -115,6 +104,10 @@ class Renderer {
      * スコア・レベルを描画
      */
     fun renderScore(canvas: Canvas, score: Int, level: Int) {
+        // 横幅いっぱいに合わせた描画位置
+        val margin = 10
+        val cellSize = (canvas.width - margin * 2) / 10
+        val offsetX = margin
         paint.color = Color.BLACK
         paint.textSize = 48f
         canvas.drawText("SCORE: $score", offsetX.toFloat(), (offsetY + cellSize * 22).toFloat(), paint)
